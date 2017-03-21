@@ -1,0 +1,27 @@
+import android.view.View;
+import android.webkit.WebView;
+import com.tritonsfs.ruqi.business.apply.ApplyActivity;
+import com.tritonsfs.ruqi.utils.TaskExecutorUtils;
+import com.tritonsfs.ruqi.view.CustomWebView;
+
+/**
+ *  @ClassName WebViewJsScope
+ *  @Description js脚本所能执行的函数空间
+ *   HostJsScope中需要被JS调用的函数，必须定义成public static，且必须包含WebView这个参数
+ *  @author zy
+ *  @date 2017/3/14
+ */
+public class WebViewJsScope {
+
+    public static void jsNext(WebView view){
+       final CustomWebView customWebView = (CustomWebView) view;
+       TaskExecutorUtils.runTaskOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               customWebView.setVisibility(View.GONE);
+               ((ApplyActivity) customWebView.getContext()).requestNextStep(1, null);
+           }
+       });
+    }
+
+}
